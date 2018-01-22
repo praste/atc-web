@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SemaphoreRunwayTokenManager implements RunwayTokenManager {
 	
-	private final int INITIAL_ACTIVE_RUNWAYS = 1; 
+	private final int INITIAL_ACTIVE_RUNWAYS = 2; 
 	private Semaphore runways = new Semaphore(INITIAL_ACTIVE_RUNWAYS);
 	private AtomicInteger activeRunwaysCount = new AtomicInteger(INITIAL_ACTIVE_RUNWAYS);
 
@@ -24,12 +24,12 @@ public class SemaphoreRunwayTokenManager implements RunwayTokenManager {
 	}
 
 	@Override
-	public void decommissionRunway(String id) {
+	public void decommissionRunway(String id) throws InterruptedException {
 		if(activeRunwaysCount.get() == 0) {
 			throw new IllegalStateException("No runways to decommission");
 		} else {
 			activeRunwaysCount.decrementAndGet();
-			runways.release();
+			runways.acquire();
 		}
 	}
 

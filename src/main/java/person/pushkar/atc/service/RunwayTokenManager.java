@@ -14,8 +14,9 @@ public interface RunwayTokenManager {
 	/**
 	 * Decommissions a runway
 	 * @param id Identifier of the runway to decommission
+	 * @throws InterruptedException 
 	 */
-	public void decommissionRunway(String id);
+	public void decommissionRunway(String id) throws InterruptedException;
 	
 	/**
 	 * Returns a count of active runways

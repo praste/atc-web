@@ -16,14 +16,14 @@ public class SemaphoreRunwayTokenManagerTest {
 	}
 	
 	@Test
-	public void decommissionARunway() {
+	public void decommissionARunway() throws InterruptedException {
 		int before = runwayTokenManager.getActiveRunwaysCount();
 		runwayTokenManager.decommissionRunway(RandomStringUtils.randomAscii(5));
 		Assert.assertEquals(before - 1, runwayTokenManager.getActiveRunwaysCount());
 	}
 	
 	@Test(expected=IllegalStateException.class)
-	public void ensureDecomssionRunwaysDoesDropBelowZero() {
+	public void ensureDecomssionRunwaysDoesDropBelowZero() throws InterruptedException {
 		int activeRunwaysCount = runwayTokenManager.getActiveRunwaysCount();
 		for(int i = 0; i < activeRunwaysCount  + 1; i++) {
 			runwayTokenManager.decommissionRunway(RandomStringUtils.randomAscii(5));
@@ -33,7 +33,7 @@ public class SemaphoreRunwayTokenManagerTest {
 	@Test(expected=IllegalStateException.class)
 	public void ensureComssionRunwaysDoesGoAboveCapacity() {
 		while(runwayTokenManager.getActiveRunwaysCount() <= SemaphoreRunwayTokenManager.MAX_RUNWAYS) {
-			runwayTokenManager.decommissionRunway(RandomStringUtils.randomAscii(5));
+			runwayTokenManager.commissionRunway(RandomStringUtils.randomAscii(5));
 		}
 	}
 }

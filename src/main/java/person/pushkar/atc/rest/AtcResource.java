@@ -72,7 +72,7 @@ public class AtcResource {
     @POST
     @Path("runway/decommission/{id : .+}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void decommissionRunway(@PathParam("id") String id) {
+    public void decommissionRunway(@PathParam("id") String id) throws InterruptedException {
     	runwayTokenManager.decommissionRunway(id);
     }
 }
