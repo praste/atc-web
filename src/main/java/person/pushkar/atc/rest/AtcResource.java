@@ -3,6 +3,7 @@ package person.pushkar.atc.rest;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.PostConstruct;
+import javax.inject.Singleton;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -20,6 +21,7 @@ import person.pushkar.atc.service.AtcService;
 import person.pushkar.atc.service.RunwayTokenManager;
 
 @Path("/atc")
+@Singleton
 public class AtcResource {
 
 	@Autowired

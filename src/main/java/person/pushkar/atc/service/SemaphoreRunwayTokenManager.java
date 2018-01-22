@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class SemaphoreRunwayTokenManager implements RunwayTokenManager {
 	
 	private final int INITIAL_ACTIVE_RUNWAYS = 2; 
-	private Semaphore runways = new Semaphore(INITIAL_ACTIVE_RUNWAYS);
+	private Semaphore runways = new Semaphore(INITIAL_ACTIVE_RUNWAYS, true);
 	private AtomicInteger activeRunwaysCount = new AtomicInteger(INITIAL_ACTIVE_RUNWAYS);
 
 	@Override

@@ -29,7 +29,7 @@ public class DefaultAtcService implements AtcService {
 
 	private long startTime = System.currentTimeMillis();
 
-	private static final long TIME_ON_RUNWAY = TimeUnit.SECONDS.toMillis(15);
+	private static final long TIME_ON_RUNWAY = TimeUnit.SECONDS.toMillis(30);
 	
 	private volatile boolean isActive = false;
 	
@@ -117,10 +117,10 @@ public class DefaultAtcService implements AtcService {
 			@Override
 			public Void call() throws Exception {
 				while(isActive) {
-					Flight flight = flightDao.getNextFlight();
-					
 					// wait for runway
 					runwayTokenManager.acquireRunway();
+					
+					Flight flight = flightDao.getNextFlight();
 					
 					LOG.info(String.format("Scheduling flight %s for %s \n",  
 							flight.getId(),
